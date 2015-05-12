@@ -1,0 +1,9 @@
+[submodule "docker-cassandra"]
+	path = docker-cassandra
+	url = https://github.com/mhmxs/docker-cassandra.git
+[submodule "hadoop-docker"]
+	path = hadoop-docker
+	url = https://github.com/mhmxs/hadoop-docker.git
+[submodule "cassandra"]
+	path = cassandra
+	url = https://github.com/pokle/cassandra.git
