@@ -32,7 +32,7 @@ Cassandra cluster is running, and DataNodes are waiting for master.
  * vagrant ssh namenode
  * docker run --name hadoop -e "MASTER=true" -p 50020:50020 -p 50090:50090 -p 50070:50070 -p 50010:50010 -p 50075:50075 -p 9000:9000 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 49707:49707 -p 2122:2122 -p 8088:8088 -p 8030:8030 -it mhmxs/hadoop /etc/bootstrap.sh -bash
 
-To load some test data into Cassandra, on Hadoop master run the following
+To load some test data into Cassandra, on cassabdraa run the following
  * $(cat > db.tmp << EOF
 create keyspace HadoopTest with strategy_options = {replication_factor:2} and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
 use HadoopTest;
