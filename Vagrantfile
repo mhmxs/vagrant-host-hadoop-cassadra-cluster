@@ -22,15 +22,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		cassandra.vm.provision :shell, path: "cassandra.sh"
 	end
 	
-	config.vm.define "cassandrab" do |cassandra|
-		cassandra.vm.network "private_network", ip: "192.168.50.2"
-		cassandra.vm.provision :shell, path: "cassandra.sh"
-	end
+	#config.vm.define "cassandrab" do |cassandra|
+	#	cassandra.vm.network "private_network", ip: "192.168.50.2"
+	#	cassandra.vm.provision :shell, path: "cassandra.sh"
+	#end
 	
-	config.vm.define "cassandrac" do |cassandra|
-		cassandra.vm.network "private_network", ip: "192.168.50.3"
-		cassandra.vm.provision :shell, path: "cassandra.sh"
-	end
+	#config.vm.define "cassandrac" do |cassandra|
+	#	cassandra.vm.network "private_network", ip: "192.168.50.3"
+	#	cassandra.vm.provision :shell, path: "cassandra.sh"
+	#end
 	
 	config.vm.define "namenode" do |nn|
 		nn.vm.network "private_network", ip: "192.168.50.4"
