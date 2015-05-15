@@ -11,6 +11,12 @@ git pull --recurse-submodules
 vagrant up
 ```
 
+If you have limited memory in your machine, you have to start nodes by hand. The number of nodes depends on you memory, each of them requires 1536 Mb of RAM.
+```
+vagrant up namenode
+vagrant up cassandraa
+```
+
 Take a coffee, order a pizza, it takes long time to download Vagrant boxes, Docker containers, and other dependencies.
 
 Now we have a Hadoop NameNode server called namenode, and 3 Casandra and Hadoop DataNode servers, named cassandraa, cassandrab, cassandrac, up and running.

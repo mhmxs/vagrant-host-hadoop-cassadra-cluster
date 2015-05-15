@@ -7,7 +7,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "ubuntu/vivid64"
 
     config.vm.provider "virtualbox" do |v|
-        v.memory = 2048
+        v.memory = 1536
     end
 
     config.vm.box_check_update = false
@@ -40,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		nn.vm.network "forwarded_port", guest: 19888, host: 19888
 		
 		config.vm.provider :virtualbox do |vb|
-			vb.customize ["modifyvm", :id, "--memory", "3072"]
+			vb.customize ["modifyvm", :id, "--memory", "1536"]
 		end
 	end
 end
