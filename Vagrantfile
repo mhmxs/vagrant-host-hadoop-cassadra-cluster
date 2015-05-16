@@ -22,7 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		slave.vm.provision :shell, path: "cassandra.sh"
 	end
 	
-	config.vm.define "slave2" do |cassandra|
+	config.vm.define "slave2" do |slave|
 		slave.vm.hostname = "slave2"
 		slave.vm.network "private_network", ip: "192.168.50.2"
 	
