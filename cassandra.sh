@@ -1,3 +1,5 @@
-/vagrant/hadoop.sh
+#!/usr/bin/env bash
 
-docker build -t mhmxs/cassandra-cluster /vagrant/docker-cassandra/cassandra-cluster
+sh /vagrant/hadoop.sh
+
+#docker build -t mhmxs/cassandra-cluster /vagrant/docker-cassandra/cassandra-cluster
