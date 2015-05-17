@@ -17,7 +17,7 @@ vagrant up master
 vagrant up slave1
 ```
 
-Take a coffee, order a pizza, it takes long time to download Vagrant boxes, Docker containers, and other dependencies.
+Take a coffee, order a pizza, it takes long time to download Vagrant boxes, Docker containers, other dependencies and than build them together.
 
 Configured servers:
 
@@ -27,28 +27,28 @@ Configured servers:
 Let's start Docker containers manually (each node requires a new terminal window)
 ```
 vagrant ssh slave1
-nohup docker run -e "PUBLIC_IP=192.168.50.1" -e "CASSANDRA_CLUSTERNAME=HadoopTest" -e "CASSANDRA_SEEDS=192.168.50.1,192.168.50.2,192.168.50.3" -e "CASSANDRA_TOKEN=-9223372036854775808" --name=cassandra -p 9042:9042 -p 9160:9160 -p 7000:7000 -p 7199:7199 -t mhmxs/cassandra-cluster > cassandra.log 2>&1 &
-docker run --net=host -it mhmxs/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash
+nohup docker run --name cassandra --net=host -e "PUBLIC_IP=192.168.50.1" -e "CASSANDRA_CLUSTERNAME=HadoopTest" -e "CASSANDRA_SEEDS=192.168.50.1,192.168.50.2,192.168.50.3" -e "CASSANDRA_TOKEN=-9223372036854775808" -t mhmxs/cassandra-cluster > cassandra.log 2>&1 &
+docker run --name hadoop --net=host -e "MASTER_IP=192.168.50.4" -e "SLAVES=192.168.50.1 slave1,192.168.50.2 slave2,192.168.50.3 slave3" -it mhmxs/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash
 ```
 
 Next node
 ```
 vagrant ssh slave2
-nohup docker run -e "PUBLIC_IP=192.168.50.2" -e "CASSANDRA_CLUSTERNAME=HadoopTest" -e "CASSANDRA_SEEDS=192.168.50.1,192.168.50.2,192.168.50.3" -e "CASSANDRA_TOKEN=-3074457345618258603" --name=cassandra -p 9042:9042 -p 9160:9160 -p 7000:7000 -p 7199:7199 -t mhmxs/cassandra-cluster > cassandra.log 2>&1 &
-docker run --net=host -it mhmxs/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash
+nohup docker run --name cassandra --net=host -e "PUBLIC_IP=192.168.50.2" -e "CASSANDRA_CLUSTERNAME=HadoopTest" -e "CASSANDRA_SEEDS=192.168.50.1,192.168.50.2,192.168.50.3" -e "CASSANDRA_TOKEN=-3074457345618258603" -t mhmxs/cassandra-cluster > cassandra.log 2>&1 &
+docker run --name hadoop --net=host -e "MASTER_IP=192.168.50.4" -e "SLAVES=192.168.50.1 slave1,192.168.50.2 slave2,192.168.50.3 slave3" -it mhmxs/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash
 ```
 
 Next node
 ```
 vagrant ssh slave3
-nohup docker run -e "PUBLIC_IP=192.168.50.3" -e "CASSANDRA_CLUSTERNAME=HadoopTest" -e "CASSANDRA_SEEDS=192.168.50.1,192.168.50.2,192.168.50.3" -e "CASSANDRA_TOKEN=3074457345618258602" --name=cassandra -p 9042:9042 -p 9160:9160 -p 7000:7000 -p 7199:7199 -t mhmxs/cassandra-cluster > cassandra.log 2>&1 &
-docker run --net=host -it mhmxs/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash
+nohup docker run --name cassandra --net=host -e "PUBLIC_IP=192.168.50.3" -e "CASSANDRA_CLUSTERNAME=HadoopTest" -e "CASSANDRA_SEEDS=192.168.50.1,192.168.50.2,192.168.50.3" -e "CASSANDRA_TOKEN=3074457345618258602" -t mhmxs/cassandra-cluster > cassandra.log 2>&1 &
+docker run --name hadoop --net=host -e "MASTER_IP=192.168.50.4" -e "SLAVES=192.168.50.1 slave1,192.168.50.2 slave2,192.168.50.3 slave3" -it mhmxs/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash
 ```
 
 Cassandra cluster is running, and slaves are waiting for master.
 ```
-vagrant ssh namenode
-docker run --net=host -e "MASTER_IP=192.168.50.4" -e "SLAVE_IPS=192.168.50.1,192.168.50.2,192.168.50.3" -it mhmxs/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash
+vagrant ssh master
+docker run --name hadoop --net=host -e "MASTER=true" -e "MASTER_IP=192.168.50.4" -e "SLAVES=192.168.50.1 slave1,192.168.50.2 slave2,192.168.50.3 slave3" -it mhmxs/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash
 ```
 
 To load some test data into Cassandra, on one of the slaves and execute the following command.
@@ -62,5 +62,5 @@ set content['peach']['text'] = 'peach peach yellow peach bumm';
 EOF && cassandra-cli -h cassandraa -f db.tmp && rm db.tmp
 ```
 
-Cassandra filled with test data, and the cluster is running and ready to run jobs. For more details visit http://localhost:50070 and http://localhost:8088.
+Cassandra filled with test data, and the cluster is running and ready to run jobs.
 

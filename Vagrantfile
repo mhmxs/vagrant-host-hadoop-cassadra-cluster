@@ -14,9 +14,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	
 	config.vm.define "slave1" do |slave|
 		slave.vm.network "private_network", ip: "192.168.50.1"
-		slave.vm.network "forwarded_port", guest: 7199, host: 7199
-		slave.vm.network "forwarded_port", guest: 9042, host: 9042
-		slave.vm.network "forwarded_port", guest: 9160, host: 9160
 		
 		slave.vm.provision :shell, inline: "hostname slave1 && sh /vagrant/cassandra.sh"
 	end
@@ -35,10 +32,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	
 	config.vm.define "master" do |master|
 		master.vm.network "private_network", ip: "192.168.50.4"
-		master.vm.network "forwarded_port", guest: 50070, host: 50070
-		master.vm.network "forwarded_port", guest: 8088, host: 8088
-		master.vm.network "forwarded_port", guest: 8042, host: 8042
-		master.vm.network "forwarded_port", guest: 19888, host: 19888  
 
 		config.vm.provision :shell, inline: "hostname master && sh /vagrant/hadoop.sh"
 		
@@ -47,14 +40,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		end
 	end
 	
-	config.vm.define "swarm" do |sw|
-		sw.vm.network "private_network", ip: "192.168.50.5"
-		sw.vm.network "forwarded_port", guest: 2375, host: 2375
+	#config.vm.define "swarm" do |sw|
+		#sw.vm.network "private_network", ip: "192.168.50.5"
+		#sw.vm.network "forwarded_port", guest: 2375, host: 2375
 
-		sw.vm.provision :shell, inline: "hostname swarm && sh /vagrant/swarm.sh"
+		#sw.vm.provision :shell, inline: "hostname swarm && sh /vagrant/swarm.sh"
 
-		config.vm.provider :virtualbox do |vb|
-			vb.customize ["modifyvm", :id, "--memory", "512"]
-		end
-	end
+		#config.vm.provider :virtualbox do |vb|
+			#vb.customize ["modifyvm", :id, "--memory", "512"]
+		#end
+	#end
 end
