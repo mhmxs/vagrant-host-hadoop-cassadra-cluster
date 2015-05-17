@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-sh /vagrant/docker.sh
+sh /vagrant/common.sh
 
 docker pull swarm
