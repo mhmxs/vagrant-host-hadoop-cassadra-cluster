@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-sh /vagrant/common.sh
+sh /vagrant/common.sh "$@"
 
-docker pull swarm
+docker pull iverberk/docker-spy
