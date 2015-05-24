@@ -7,8 +7,8 @@ This project aims to configure and run Dockerized Hadoop and Cassandra cluster o
 git clone https://github.com/mhmxs/vagrant-host-hadoop-cassadra-cluster.git
 cd vagrant-host-hadoop-cassadra-cluster
 git submodule update --init
-cd hadoop-docker && git checkout -b 2.6.0-dns
-cd .. && git checkout -b 2.6.0-dns
+cd hadoop-docker && git checkout 2.6.0-dns
+cd .. && git checkout 2.6.0-dns
 vagrant up
 ```
 
@@ -27,7 +27,7 @@ Configured servers:
   * Hadoop master server called master (JobHistoryServer, NodeManager, ResourceManager, SecondaryNameNode, DataNode, NameNode)
   * 3 slave server (DataNode, NodeManage), named slave1, slave2, slave3
 
-Create a swarm cluster and initialize the manager itself
+Start weave network, create a swarm cluster and initialize the manager itself
 ```
 vagrant ssh swarm
 weave launch
@@ -35,7 +35,7 @@ docker run --rm swarm create > /vagrant/currenttoken
 docker run -d -p 1234:2375 swarm manage token://$(cat /vagrant/currenttoken)
 ```
 
-Let's join to the Swarm cluster (each node requires a new terminal window)
+Let's join to the network and the cluster too (each node requires a new terminal window)
 
 all other node and swarm too
 ```
