@@ -7,8 +7,8 @@ This project aims to configure and run Dockerized Hadoop and Cassandra cluster o
 git clone https://github.com/mhmxs/vagrant-host-hadoop-cassadra-cluster.git
 cd vagrant-host-hadoop-cassadra-cluster
 git submodule update --init
-cd hadoop-docker && git checkout 2.6.0-dns
-cd .. && git checkout 2.6.0-dns
+cd hadoop-docker && git checkout 2.6.0
+cd .. && git checkout master
 vagrant up
 ```
 
