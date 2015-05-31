@@ -1,6 +1,8 @@
 # vagrant-host-hadoop-cassadra-cluster
 Vagrant environment to configure and test Hadoop cluster with Cassandra
 
+Currently heavily under construction!!!
+
 This project aims to configure and run Dockerized Hadoop and Cassandra cluster on Vagrant hosts, with Weave networking, Swarm cluster, and automatic DNS registration via docker-spy. To build the environment follow the steps below.
 
 ```
