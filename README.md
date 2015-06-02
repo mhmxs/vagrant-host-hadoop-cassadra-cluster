@@ -24,7 +24,7 @@ Take a coffee, order a pizza, it takes long time to download Vagrant boxes, Dock
 Configured servers:
 
   * Swarm manager node with DNS service
-  * Hadoop master server called master (hadoop: JobHistoryServer, NodeManager, ResourceManager, SecondaryNameNode, DataNode, NameNode)
+  * Hadoop master server called master (hadoop: JobHistoryServer, ResourceManager, SecondaryNameNode, NameNode)
   * 3 slave server (cassandra, hadoop: DataNode, NodeManager), named slave1, slave2, slave3
 
 Start weave network, create a swarm cluster and initialize the manager itself
