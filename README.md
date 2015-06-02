@@ -12,7 +12,7 @@ cd .. && git checkout master
 vagrant up
 ```
 
-If you have limited memory in your machine, you have to start some of the nodes by hand. The number of nodes depends on you memory, swarm requires 512 MB, master 1536 Mb, and slaves 1024 Mb of RAM.
+If you have limited memory in your machine, you have to start some of the nodes by hand. The number of nodes depends on you memory, swarm and master require 512, slaves 1024 Mb of RAM.
 ```
 vagrant up swarm
 vagrant up master
@@ -74,17 +74,4 @@ master
 docker -H tcp://192.168.50.15:1234 run --name hadoop-master --dns 192.168.50.15 -h master.lo -e "SLAVES=slave1.lo,slave2.lo,slave3.lo" -it mhmxs/hadoop-docker:2.6.0 /etc/bootstrap.sh -bash
 ```
 
-
-To load some test data into Cassandra, on one of the slaves and execute the following command.
-```
-$(cat > db.tmp << EOF
-create keyspace HadoopTest with strategy_options = {replication_factor:2} and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
-use HadoopTest;
-create column family content with comparator = UTF8Type and key_validation_class = UTF8Type and default_validation_class = UTF8Type and column_metadata = [ {column_name: text, validation_class:UTF8Type} ];
-set content['apple']['text'] = 'apple apple red apple bumm';
-set content['peach']['text'] = 'peach peach yellow peach bumm';
-EOF && cassandra-cli -h casandra1 -f db.tmp && rm db.tmp
-```
-
-Cassandra filled with test data, and the cluster is running and ready to run jobs.
 
