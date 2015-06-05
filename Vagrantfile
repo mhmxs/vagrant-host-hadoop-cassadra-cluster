@@ -7,7 +7,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "ubuntu/vivid64"
 
     config.vm.provider "virtualbox" do |v|
-        v.memory = 1024
+        v.memory = 1280
     end
 
     config.vm.box_check_update = false
@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		master.vm.provision :shell, inline: "sh /vagrant/hadoop.sh 10.2.0.14/16 10.2.14.0/24"
 		
 		config.vm.provider :virtualbox do |vb|
-			vb.customize ["modifyvm", :id, "--memory", "768"]
+			vb.customize ["modifyvm", :id, "--memory", "1024"]
 		end
 	end
 	
